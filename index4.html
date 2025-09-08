@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="en-ZA" data-theme="white-red">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TEF Solutions (Pty) Ltd — Company Profile</title>
+  <meta name="description" content="TEF Solutions (Pty) Ltd — a 100% black-owned consulting and engineering company delivering research-driven strategies, services, and measurable results." />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0,0,0,.10);
+      --ring: rgba(239,68,68,.35);
+      --header-h: 76px;
+    }
+    /* Brand: white + red */
+    html[data-theme="white-red"]{
+      --bg:#ffffff; --bg-soft:#fef2f2; --card:#ffffff; --card-2:#fff1f1;
+      --text:#111827; --muted:#6b7280; --border: rgba(0,0,0,.10);
+      --brand:#ef4444; --brand-2:#b91c1c; --accent:#7f1d1d;
+      --link:#ef4444; --link-hover:#b91c1c; --footer:#f9fafb;
+      --success:#16a34a; --warning:#f59e0b; --info:#2563eb;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;
+      color:var(--text); background:var(--bg); line-height:1.6; letter-spacing:.2px;
+      padding-top: calc(var(--header-h) + 8px);
+      /* remove previous chequered patterns; keep very soft wash only */
+      background-image:
+        radial-gradient(900px 600px at 110% -10%, rgba(255,241,241,.55), transparent 60%),
+        radial-gradient(900px 600px at -10% 110%, rgba(255,241,241,.45), transparent 60%);
+      background-repeat:no-repeat,no-repeat;
+    }
+    a{color:var(--link); text-decoration:none} a:hover{color:var(--link-hover)}
+    .container{max-width:1160px; margin:0 auto; padding:0 20px}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+    /* Fixed Header (persistent) */
+    header{
+      position:fixed; inset:0 0 auto 0; z-index:100;
+      backdrop-filter:saturate(180%) blur(10px);
+      background:color-mix(in oklab, var(--bg), transparent 10%);
+      border-bottom:1px solid var(--border);
+      transition: box-shadow .35s cubic-bezier(.22,.61,.36,1);
+    }
+    header.scrolled{ box-shadow: 0 6px 22px rgba(0,0,0,.10); }
+    .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 0}
+    .brand{display:flex; align-items:center; gap:12px}
+    /* LOGO: full image visible, no borders or padding, no adjacent text */
+    .brand-logo{height:56px; width:auto; object-fit:contain; border:none; padding:0; background:transparent; border-radius:0; display:block;}
+    .brand b{display:none} /* ensure no text shows even if present */
+    nav.primary{display:flex; align-items:center; gap:6px; margin-left:auto}
+    .nav a.btn{padding:10px 14px; border:1px solid var(--border); border-radius:12px; color:var(--text); background:transparent; font-weight:700; position:relative}
+    .nav a.btn--primary{border:none; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#ffffff; font-weight:900}
+    .nav a.btn.active{background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#ffffff; font-weight:900; border-color:transparent}
+
+    /* Utility bar */
+    .util{background:var(--bg-soft); border-bottom:1px solid var(--border); font-size:.9rem; color:var(--muted)}
+    .util .wrap{display:flex; gap:16px; align-items:center; justify-content:space-between; padding:8px 0}
+    .util .links{display:flex; gap:16px; flex-wrap:wrap}
+    .util .links span{white-space:nowrap}
+    .pill{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; background:#fff; border:1px solid var(--border); color:var(--text); font-weight:700}
+
+    /* Sections / blocks */
+    section{padding:38px 0}
+    .kicker{display:inline-block; font-size:.8rem; letter-spacing:.25em; font-weight:800; color:var(--link-hover); text-transform:uppercase}
+    .section-title{font-size:clamp(22px, 3.6vw, 34px); line-height:1.15; margin:.35rem 0 1rem; color:var(--accent)}
+    .grid{display:grid; gap:18px}
+    @media(min-width:880px){.grid.cols-2{grid-template-columns:1fr 1fr} .grid.cols-3{grid-template-columns:repeat(3,1fr)} .grid.cols-4{grid-template-columns:repeat(4,1fr)}}
+    .card{background:var(--card-2); border:1px solid var(--border); border-radius:var(--radius); padding:22px; box-shadow:var(--shadow)}
+    .muted{color:var(--muted)}
+
+    /* Background placeholder class remains, but we drop grid/chequered fills */
+    .bg-ph{position:relative; overflow:hidden}
+    .bg-ph::before{
+      /* soft wash per section */
+      content:""; position:absolute; inset:0; pointer-events:none; opacity:.25;
+      background: radial-gradient(70% 70% at 100% 0%, rgba(255,241,241,.9), transparent 60%);
+    }
+
+    /* Hero */
+    .hero{padding:56px 0 28px; background:var(--bg-soft); position:relative}
+    .hero .wrap{position:relative; display:grid; gap:26px; align-items:center}
+    @media(min-width:980px){ .hero .wrap{grid-template-columns:1.1fr .9fr} }
+    .headline{font-size:clamp(34px, 4.6vw, 56px); line-height:1.05; font-weight:900; letter-spacing:.4px; color:var(--accent)}
+    .sub{font-size:clamp(16px, 2.1vw, 20px); color:var(--muted); max-width:70ch}
+    .searchbar{display:flex; gap:10px; padding:10px; background:#fff; border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); margin-top:6px}
+    .searchbar input{flex:1; border:none; outline:none; font:inherit}
+    .btn{display:inline-flex; align-items:center; gap:10px; padding:12px 16px; border-radius:14px; border:1px solid var(--border); color:var(--text); font-weight:800; background:var(--card)}
+    .btn-primary{border:none; background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#ffffff}
+    .btn-ghost{background:transparent}
+
+    /* Trust band */
+    .trust{background:#fff; border-top:1px solid var(--border); border-bottom:1px solid var(--border); position:relative}
+    .trust .logos{position:relative; display:grid; grid-template-columns:repeat(5,1fr); gap:14px}
+    .trust .tile{height:56px; border-radius:12px; border:1px dashed var(--border); background:linear-gradient(135deg,#fff,#fff1f1); display:flex; align-items:center; justify-content:center; font-weight:800; color:#b91c1c}
+
+    /* Image placeholders */
+    .ph{position:relative; width:100%; aspect-ratio:16/10; border-radius:14px; overflow:hidden;
+      background:linear-gradient(135deg, var(--bg-soft), #ffe5e5); border:1px solid var(--border); box-shadow:var(--shadow)}
+    .ph--thin{aspect-ratio:3/2}
+    .ph img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block}
+    .thumb{width:64px; height:64px; border-radius:12px; overflow:hidden; border:1px solid var(--border); background:linear-gradient(135deg,#fff,#ffe5e5); position:relative}
+    .thumb img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+
+    /* Services */
+    .services .item{padding:18px; border-radius:16px; background:var(--card); border:1px solid var(--border); display:grid; grid-template-columns:64px 1fr; gap:14px; align-items:center}
+    .services .item h4{margin:.15rem 0 .2rem; font-size:1rem; color:var(--accent)}
+    .services .item p{margin:0; color:var(--muted); font-size:.95rem}
+
+    /* Why + stats */
+    .why .point{display:grid; grid-template-columns:44px 1fr; gap:12px; align-items:start}
+    .why .dot{width:44px; height:44px; border-radius:12px; background:linear-gradient(135deg,var(--brand),var(--brand-2)); border:1px solid var(--border)}
+    .stats{background:var(--bg-soft); border-top:1px solid var(--border); border-bottom:1px solid var(--border); position:relative}
+    .stats .grid{position:relative; grid-template-columns:repeat(4,1fr)}
+    .num{font-weight:900; font-size:clamp(22px, 3.2vw, 34px); color:var(--accent)}
+
+    /* Projects — polished cards */
+    .projects .wrap{display:grid; gap:18px}
+    .project{
+      display:grid; grid-template-columns:220px 1fr; gap:16px; align-items:center;
+      padding:16px; border:1px solid var(--border); border-radius:16px; background:#fff;
+      box-shadow: 0 6px 20px rgba(0,0,0,.06); transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .project:hover{ transform: translateY(-3px); box-shadow: 0 10px 26px rgba(0,0,0,.10); }
+    .project figure{margin:0}
+    .project .meta small{color:var(--muted)}
+    .tag{display:inline-flex; align-items:center; padding:4px 8px; border-radius:999px; font-size:.76rem; font-weight:800;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2)); color:#fff; margin-right:8px}
+    @media (max-width: 820px){ .project{grid-template-columns:1fr} }
+
+    /* Contact form */
+    .form-card { background: var(--card); border:1px solid var(--border); border-radius: var(--radius); padding: 22px; box-shadow: var(--shadow); }
+    .form-grid { display:grid; gap:14px; }
+    .form-grid label { display:grid; gap:6px; }
+    .form-grid label span { font-weight:800; font-size:.92rem; color:var(--accent); letter-spacing:.2px; }
+    .form-actions { display:flex; gap:10px; align-items:center; justify-content:flex-start; margin-top:4px; }
+    #formMsg { min-height: 1.2em; }
+    input, textarea{width:100%; background:#fff; border:1px solid var(--border); color:var(--text); padding:12px 14px; border-radius:12px; outline:none}
+    input:focus, textarea:focus{box-shadow:0 0 0 4px var(--ring); border-color:transparent}
+    textarea{min-height:120px; resize:vertical}
+    input.error, textarea.error { border-color:#ef4444; box-shadow: 0 0 0 4px rgba(239,68,68,.15); }
+    @media (max-width: 520px){ .form-actions { flex-direction:column; align-items:stretch; } .form-actions .btn { width:100%; } }
+
+    /* Footer */
+    footer{padding:28px 0 50px; color:var(--muted); border-top:1px solid var(--border); background:var(--footer)}
+    .footer-grid{display:grid; gap:12px}
+    @media(min-width:880px){.footer-grid{grid-template-columns:1fr auto}}
+
+    /* Scroll reveal animations */
+    @media (prefers-reduced-motion: no-preference){
+      [data-reveal]{opacity:0; transform: translateY(18px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1); will-change: opacity, transform}
+      [data-reveal].is-visible{opacity:1; transform:none}
+      [data-reveal-child]{opacity:0; transform: translateY(14px); transition: opacity .7s cubic-bezier(.22,.61,.36,1), transform .7s cubic-bezier(.22,.61,.36,1)}
+      [data-reveal].is-visible [data-reveal-child]{opacity:1; transform:none}
+      [data-reveal-child]{transition-delay: var(--d, 0ms)}
+    }
+
+    /* === Floating geometric shapes (site-wide) === */
+    .floating-shapes{
+      position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden;
+    }
+    .floating-shapes .shape{
+      --s: 64px;               /* size */
+      --x: 50%; --y: 110%;     /* start position (off bottom) */
+      --tx: 50%; --ty: -10%;   /* end position (off top) */
+      --rot: 360deg;           /* rotation */
+      --dur: 26s;              /* duration */
+      --delay: 0s;             /* delay */
+      position:absolute; left:var(--x); top:var(--y); width:var(--s); height:var(--s);
+      background: rgba(185,28,28,.075);
+      border: 1px solid rgba(185,28,28,.18);
+      filter: blur(.2px);
+      transform: translate(-50%,-50%);
+      animation: float var(--dur) linear var(--delay) infinite,
+                 sway 6s ease-in-out calc(var(--delay)/2) infinite alternate;
+    }
+    .shape.sq{ border-radius:12px }
+    .shape.circ{ border-radius:50% }
+    .shape.tri{ border-radius:0; clip-path: polygon(50% 0%, 0% 100%, 100% 100%) }
+    .shape.trap{ border-radius:8px; clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%) }
+
+    /* subtle highlight stroke overlay for shapes */
+    .shape::after{
+      content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+      background: linear-gradient(135deg, rgba(255,255,255,.35), transparent 40%);
+      mix-blend-mode:overlay; opacity:.5;
+    }
+
+    @keyframes float{
+      from{ transform: translate(calc(var(--x) - 50%), calc(var(--y) - 50%)) rotate(0deg); }
+      to  { transform: translate(calc(var(--tx) - 50%), calc(var(--ty) - 50%)) rotate(var(--rot)); }
+    }
+    @keyframes sway{
+      from{ transform-origin: 50% 50%; }
+      to  { transform-origin: 46% 54%; }
+    }
+
+    /* Floating shapes also inside .bg-ph sections (layered, but lighter) */
+    .bg-ph::after{
+      content:""; position:absolute; inset:-10% -5%; pointer-events:none; z-index:0;
+      background:
+        radial-gradient(32px 32px at 10% 110%, rgba(185,28,28,.08), transparent 70%),
+        radial-gradient(28px 28px at 96% -6%, rgba(185,28,28,.06), transparent 70%);
+      opacity:.6;
+    }
+
+    /* Floating Media Navigator (unchanged from your file) */
+    .media-fab{
+      position:fixed; right:18px; bottom:18px; z-index:120; border-radius:999px; box-shadow:0 8px 24px rgba(0,0,0,.18);
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; border:none; padding:14px 16px; font-weight:900; cursor:pointer;
+    }
+    .media-panel{
+      position:fixed; inset:auto 18px 78px auto; width:min(420px, 92vw); max-height:72vh; background:#fff; border:1px solid var(--border); border-radius:16px; box-shadow:0 20px 40px rgba(0,0,0,.28); z-index:121; display:none; overflow:hidden;
+    }
+    .media-panel.open{display:block; animation:panelIn .22s ease-out}
+    @keyframes panelIn{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:none}}
+    .media-panel header{display:flex; align-items:center; justify-content:space-between; padding:10px 12px; border-bottom:1px solid var(--border); background:var(--bg-soft)}
+    .media-panel input{width:100%; border:1px solid var(--border); border-radius:10px; padding:10px 12px; outline:none}
+    .media-list{max-height:calc(72vh - 100px); overflow:auto}
+    .media-item{display:flex; gap:10px; align-items:center; padding:10px 12px; border-bottom:1px solid var(--border); cursor:pointer}
+    .media-item:hover{background:#fff8f8}
+    .media-chip{font-size:.72rem; background:#fff1f1; border:1px solid var(--border); padding:2px 8px; border-radius:999px; color:#b91c1c; font-weight:800}
+    .media-highlight{outline:3px solid var(--brand); outline-offset:3px; transition:outline-color 1s ease}
+  </style>
+</head>
+<body>
+  <a class="sr-only" href="#main">Skip to content</a>
+
+  <!-- Floating geometric shapes layer -->
+  <div class="floating-shapes" aria-hidden="true">
+    <!-- You can tweak sizes (--s), positions (--x), durations (--dur), and delays (--delay) -->
+    <span class="shape sq"   style="--s:74px;  --x:8%;   --tx:10%;  --dur:32s; --delay:-2s;"></span>
+    <span class="shape tri"  style="--s:82px;  --x:22%;  --tx:18%;  --dur:36s; --delay:-12s;"></span>
+    <span class="shape trap" style="--s:96px;  --x:34%;  --tx:40%;  --dur:38s; --delay:-8s; --rot:420deg;"></span>
+    <span class="shape circ" style="--s:64px;  --x:46%;  --tx:44%;  --dur:28s; --delay:-18s;"></span>
+    <span class="shape sq"   style="--s:54px;  --x:58%;  --tx:60%;  --dur:30s; --delay:-5s;"></span>
+    <span class="shape tri"  style="--s:70px;  --x:72%;  --tx:68%;  --dur:34s; --delay:-10s;"></span>
+    <span class="shape trap" style="--s:86px;  --x:84%;  --tx:78%;  --dur:40s; --delay:-14s;"></span>
+    <span class="shape circ" style="--s:48px;  --x:94%;  --tx:88%;  --dur:26s; --delay:-6s;"></span>
+
+    <span class="shape sq"   style="--s:60px;  --x:16%;  --tx:12%;  --dur:33s; --delay:-22s;"></span>
+    <span class="shape tri"  style="--s:52px;  --x:28%;  --tx:26%;  --dur:29s; --delay:-19s;"></span>
+    <span class="shape trap" style="--s:58px;  --x:38%;  --tx:36%;  --dur:31s; --delay:-26s;"></span>
+    <span class="shape circ" style="--s:44px;  --x:52%;  --tx:50%;  --dur:27s; --delay:-20s;"></span>
+    <span class="shape sq"   style="--s:66px;  --x:66%;  --tx:64%;  --dur:35s; --delay:-24s;"></span>
+    <span class="shape tri"  style="--s:74px;  --x:78%;  --tx:80%;  --dur:39s; --delay:-28s;"></span>
+    <span class="shape trap" style="--s:62px;  --x:90%;  --tx:92%;  --dur:37s; --delay:-30s;"></span>
+  </div>
+
+  <!-- Utility bar -->
+  <div class="util">
+    <div class="container wrap">
+      <div class="links">
+        <span>B-BBEE Level 1</span>
+        <span>100% black-owned</span>
+        <span>Reg: 2017/079541/07</span>
+      </div>
+      <a class="pill" href="mailto:TEFsolutions@outlook.com">Contact: TEFsolutions@outlook.com</a>
+    </div>
+  </div>
+
+  <!-- Header (persistent) -->
+  <header id="siteHeader">
+    <div class="container nav">
+      <a class="brand" href="#hero" aria-label="TEF Solutions Home">
+        <img src="Asset 2.png" alt="TEF Solutions Logo" class="brand-logo" onerror="this.onerror=null; this.src=PLACEHOLDER_ICON;">
+        <!-- text next to logo intentionally removed -->
+      </a>
+      <nav class="primary" aria-label="Primary">
+        <a class="btn" href="#about">About</a>
+        <a class="btn" href="#services">Services</a>
+        <a class="btn" href="#projects">Projects</a>
+        <a class="btn btn--primary" href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <!-- Hero -->
+    <section id="hero" class="hero bg-ph" data-reveal>
+      <div class="container wrap">
+        <div>
+          <span class="kicker">Business • Engineering • Strategy</span>
+          <h1 class="headline">Research-driven strategies and engineering solutions for lasting impact.</h1>
+          <p class="sub">We help organizations grow, innovate, and overcome challenges—enhancing workflows, improving operational efficiency, and driving sustainable development.</p>
+          <div class="searchbar" role="search">
+            <input placeholder="What can we help you solve today?" aria-label="search prompt">
+            <button class="btn btn-primary" type="button" onclick="smoothScrollTo('#contact')">Speak to a specialist</button>
+          </div>
+        </div>
+        <figure class="ph ph--thin" data-media="hero-image">
+          <img loading="lazy" alt="Team at work" src="images/hero.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_WIDE;">
+        </figure>
+      </div>
+    </section>
+
+    <!-- Trust band -->
+    <section class="trust bg-ph" data-reveal>
+      <div class="container">
+        <div class="grid logos">
+          <div class="tile" data-reveal-child>Quality</div>
+          <div class="tile" data-reveal-child style="--d:60ms">Safety</div>
+          <div class="tile" data-reveal-child style="--d:120ms">Reliability</div>
+          <div class="tile" data-reveal-child style="--d:180ms">Compliance</div>
+          <div class="tile" data-reveal-child style="--d:240ms">Results</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" data-reveal>
+      <div class="container grid cols-2">
+        <div class="card" data-reveal-child>
+          <span class="kicker">Introduction</span>
+          <h2 class="section-title">Who we are</h2>
+          <p>TEF SOLUTIONS (PTY) LTD is a 100% black-owned service provider delivering innovative developmental strategies across business, engineering, NGOs, and infrastructural development—founded by Three Engineering Friends (“TEF”).</p>
+        </div>
+        <div class="card" data-reveal-child style="--d:120ms">
+          <span class="kicker">Vision & Mission</span>
+          <h3>Vision</h3>
+          <p>To be a recognized brand in modern, research-driven developmental strategies across all business sectors—empowering businesses and strengthening the workforce in South Africa and across Africa.</p>
+          <h3>Mission</h3>
+          <p>Provide world-class strategies and solutions that help organizations grow, innovate, and overcome challenges—driving sustainable development across every sector we serve.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Why choose us -->
+    <section class="why" data-reveal>
+      <div class="container grid cols-3">
+        <div class="card point" data-reveal-child>
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h3>Experienced Team</h3>
+            <p class="muted">Seasoned professionals dedicated to excellence on every project.</p>
+          </div>
+        </div>
+        <div class="card point" data-reveal-child style="--d:120ms">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h3>Quality Assurance</h3>
+            <p class="muted">Adherence to stringent SANS standards and best practices.</p>
+          </div>
+        </div>
+        <div class="card point" data-reveal-child style="--d:240ms">
+          <div class="dot" aria-hidden="true"></div>
+          <div>
+            <h3>Customer-Centric</h3>
+            <p class="muted">We listen, tailor, and deliver solutions that exceed expectations—on time and on budget.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section id="services" class="services" data-reveal>
+      <div class="container">
+        <span class="kicker">Our Services</span>
+        <h2 class="section-title">Consulting & service delivery across key sectors</h2>
+
+        <div class="grid cols-3" style="margin-bottom:10px">
+          <div class="item" data-reveal-child data-media="service-stationery">
+            <div class="thumb"><img alt="Stationery supplies" src="images/services/stationery.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_SQUARE;"></div>
+            <div>
+              <h4>Stationery Supplies & Delivery</h4>
+              <p>High-quality stationery with efficient delivery—keeping teams equipped and operations smooth.</p>
+            </div>
+          </div>
+
+          <div class="item" data-reveal-child style="--d:60ms" data-media="service-hydraulics">
+            <div class="thumb"><img alt="Hydraulics" src="images/services/hydraulics.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_SQUARE;"></div>
+            <div><h4>Hydraulic Machinery & Equipment</h4><p>Strength, precision, and long-lasting industrial performance.</p></div>
+          </div>
+
+          <div class="item" data-reveal-child style="--d:120ms" data-media="service-hvac">
+            <div class="thumb"><img alt="HVAC" src="images/services/hvac.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_SQUARE;"></div>
+            <div><h4>HVAC Systems</h4><p>Design, installation, and servicing of energy-efficient climate systems.</p></div>
+          </div>
+
+          <div class="item" data-reveal-child style="--d:180ms" data-media="service-rotating">
+            <div class="thumb"><img alt="Rotating machinery" src="images/services/rotating.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_SQUARE;"></div>
+            <div><h4>Rotating Machinery</h4><p>Maintenance and optimization of turbines, pumps, and motors.</p></div>
+          </div>
+
+          <div class="item" data-reveal-child style="--d:240ms" data-media="service-electro-mech">
+            <div class="thumb"><img alt="Electrical & Mechanical" src="images/services/electro-mech.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_SQUARE;"></div>
+            <div><h4>Electrical/Mechanical Components & Supplies</h4><p>Reliable parts with operational strategies that reduce downtime.</p></div>
+          </div>
+
+          <div class="item" data-reveal-child style="--d:300ms" data-media="service-lab">
+            <div class="thumb"><img alt="Laboratory" src="images/services/lab.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_SQUARE;"></div>
+            <div><h4>Laboratory Supplies & Fixtures</h4><p>Specialized equipment and fixtures for accurate testing and research.</p></div>
+          </div>
+
+          <div class="item" data-reveal-child style="--d:360ms" data-media="service-facility">
+            <div class="thumb"><img alt="Facilities" src="images/services/facility.jpg" onerror="this.onerror-null; this.src=PLACEHOLDER_SQUARE;"></div>
+            <div><h4>Building & Facility Maintenance</h4><p>Dependable repairs and upkeep for safe, compliant facilities.</p></div>
+          </div>
+
+          <div class="item" data-reveal-child style="--d:420ms" data-media="service-advisory">
+            <div class="thumb"><img alt="Advisory" src="images/services/advisory.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_SQUARE;"></div>
+            <div><h4>Management Advisory</h4><p>Tailored strategies that improve efficiency, growth, and sustainability.</p></div>
+          </div>
+
+          <div class="item" data-reveal-child style="--d:480ms" data-media="service-supply">
+            <div class="thumb"><img alt="Supply & distribution" src="images/services/supply.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_SQUARE;"></div>
+            <div><h4>Supply & Distribution</h4><p>Reliable sourcing and timely delivery of equipment and materials.</p></div>
+          </div>
+
+          <div class="item" data-reveal-child style="--d:540ms" data-media="service-engineering">
+            <div class="thumb"><img alt="Engineering" src="images/services/engineering.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_SQUARE;"></div>
+            <div><h4>Professional Engineering</h4><p>Design, develop, and implement practical, world-class solutions.</p></div>
+          </div>
+        </div>
+
+        <div class="card" data-reveal-child style="--d:600ms">
+          <strong>More Services:</strong>
+          <ul class="muted" style="margin:8px 0 0 1rem">
+            <li>Ownership Tracing (Vehicle & Property)</li>
+            <li>Website Development</li>
+            <li>Company Profile Development</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats bg-ph" data-reveal>
+      <div class="container grid cols-4">
+        <div class="card" data-reveal-child><div class="num">100%+</div><div class="muted">Black-owned • Level 1 B-BBEE</div></div>
+        <div class="card" data-reveal-child style="--d:120ms"><div class="num">135%</div><div class="muted">Procurement recognition</div></div>
+        <div class="card" data-reveal-child style="--d:240ms"><div class="num">2–6 days</div><div class="muted">Typical tracing turnaround</div></div>
+        <div class="card" data-reveal-child style="--d:360ms"><div class="num">Multi-sector</div><div class="muted">Business • Engineering • NGOs</div></div>
+      </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects" class="projects" data-reveal>
+      <div class="container">
+        <span class="kicker">Past Projects</span>
+        <h2 class="section-title">Selected work</h2>
+
+        <div class="wrap">
+          <article class="project" data-reveal-child data-media="project-egagasini">
+            <figure class="ph ph--thin"><img class="project-img" alt="Egagasini project" src="images/projects/egagasini.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_WIDE;"></figure>
+            <div class="meta">
+              <h3>Egagasini Restaurant & Cuisine (Durban)</h3>
+              <p class="muted">HVAC Design & Installation • Fire Protection</p>
+              <span class="tag">HVAC</span><span class="tag">Fire</span>
+            </div>
+          </article>
+
+          <article class="project" data-reveal-child style="--d:120ms" data-media="project-pedros-ormonde">
+            <figure class="ph ph--thin"><img class="project-img" alt="Pedros Ormonde" src="images/projects/pedros-ormonde.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_WIDE;"></figure>
+            <div class="meta">
+              <h3>Pedros Restaurant (Ormonde)</h3>
+              <p class="muted">HVAC Design & Installation</p>
+              <span class="tag">HVAC</span>
+            </div>
+          </article>
+
+          <article class="project" data-reveal-child style="--d:240ms" data-media="project-spar-tops">
+            <figure class="ph ph--thin"><img class="project-img" alt="SPAR Tops Ormonde" src="images/projects/spar-tops.jpg" onerror="this.onerror=null; this.src=PLACEHOLDER_WIDE;"></figure>
+            <div class="meta">
+              <h3>SPAR Tops (Ormonde)</h3>
+              <p class="muted">HVAC Design & Installation</p>
+              <span class="tag">HVAC</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" data-reveal>
+      <div class="container grid cols-2">
+        <div class="card" data-reveal-child>
+          <span class="kicker">Get in touch</span>
+          <h2 class="section-title">Let’s discuss your project</h2>
+          <p class="muted">Primary line of business: Solutions provider, design consultants, engineering and developmental strategists, and service delivery.</p>
+          <ul class="list" style="padding-left:1.05rem">
+            <li><strong>Phone:</strong> <a href="tel:+27724571806">+27 72 457 1806</a></li>
+            <li><strong>Email:</strong> <a href="mailto:TEFsolutions@outlook.com">TEFsolutions@outlook.com</a></li>
+            <li><strong>Address:</strong> Office 19, 19 Nenta Place, Winchester Hills, 2091</li>
+            <li><strong>Website:</strong> <a href="https://www.tefsolutions.co.za/" target="_blank" rel="noopener">www.tefsolutions.co.za</a></li>
+            <li><strong>B-BBEE:</strong> Level 1 Contributor</li>
+          </ul>
+        </div>
+
+        <div class="card form-card" data-reveal-child style="--d:120ms" data-media="contact-form">
+          <form id="contactForm" action="https://formspree.io/f/YOUR_ID" method="POST" novalidate>
+            <div class="form-grid">
+              <label><span>Your Name</span><input name="name" placeholder="Full name" autocomplete="name" required /></label>
+              <label><span>Email</span><input type="email" name="email" placeholder="you@example.com" autocomplete="email" required /></label>
+              <label><span>Message</span><textarea name="message" placeholder="Tell us a bit about your needs…" required></textarea></label>
+            </div>
+            <input type="hidden" name="_subject" value="New enquiry from TEF Solutions website" />
+            <div class="form-actions">
+              <button class="btn btn-primary" type="submit">Send enquiry</button>
+              <span id="formMsg" class="muted"></span>
+            </div>
+          </form>
+          <p class="muted" style="margin-top:12px">Prefer email? Write to <a href="mailto:TEFsolutions@outlook.com">TEFsolutions@outlook.com</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container footer-grid">
+      <p>© <script>document.write(new Date().getFullYear())</script> TEF Solutions (Pty) Ltd. All rights reserved.</p>
+      <p>B-BBEE Level 1 • 100% black-owned • Reg: 2017/079541/07 </p>
+    </div>
+  </footer>
+
+  <!-- Floating Media Navigator -->
+  <button class="media-fab" id="mediaFab" title="Media Navigator">Media</button>
+  <aside class="media-panel" id="mediaPanel" aria-label="Media Navigator">
+    <header>
+      <strong style="font-weight:900;color:var(--accent)">Find media blocks</strong>
+      <button class="btn btn-ghost" id="mediaClose" aria-label="Close">Close</button>
+    </header>
+    <div style="padding:10px 12px; border-bottom:1px solid var(--border)">
+      <input id="mediaSearch" placeholder="Search e.g. hero, service, project…" />
+    </div>
+    <div class="media-list" id="mediaList"></div>
+  </aside>
+
+  <script>
+    // --- Placeholders (inline SVGs) ---
+    const PLACEHOLDER_WIDE = 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500"><defs><linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#fff1f1"/><stop offset="1" stop-color="#fdecec"/></linearGradient></defs><rect width="800" height="500" fill="url(#g)"/><g fill="none" stroke="#ef4444" stroke-width="4" opacity=".25"><path d="M0,420 C160,340 240,360 400,280 C560,200 640,220 800,140"/></g><g fill="#b91c1c" opacity=".85"><circle cx="80" cy="80" r="10"/><circle cx="120" cy="140" r="6"/><circle cx="220" cy="110" r="8"/></g><g fill="#7f1d1d" opacity=".9"><path d="M370 210h60v60h-60z" opacity=".08"/><path d="M360 200h80v80h-80z" opacity=".06"/><path d="M350 190h100v100h-100z" opacity=".04"/></g><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Manrope,Segoe UI,Arial" font-weight="800" font-size="28" fill="#7f1d1d">Image Coming Soon</text></svg>`);
+    const PLACEHOLDER_SQUARE = 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300"><defs><linearGradient id="gs" x1="0" x2="1"><stop offset="0" stop-color="#fff1f1"/><stop offset="1" stop-color="#fdecec"/></linearGradient></defs><rect width="300" height="300" fill="url(#gs)"/><g transform="translate(70,70)" fill="none" stroke="#ef4444" stroke-width="5" opacity=".3"><rect x="0" y="0" width="160" height="160" rx="22"/><path d="M20 120l40-40 32 32 22-22 26 30" stroke-linecap="round"/></g><text x="50%" y="88%" dominant-baseline="middle" text-anchor="middle" font-family="Manrope,Segoe UI,Arial" font-weight="700" font-size="16" fill="#7f1d1d">Placeholder</text></svg>`);
+    const PLACEHOLDER_ICON = 'data:image/svg+xml;base64,' + btoa(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160"><defs><linearGradient id="gi" x1="0" x2="1"><stop offset="0" stop-color="#fff1f1"/><stop offset="1" stop-color="#fdecec"/></linearGradient></defs><rect width="160" height="160" rx="18" fill="url(#gi)" stroke="#ef4444" stroke-opacity=".25"/><g fill="#b91c1c" opacity=".9"><path d="M40 100h80v12H40zM40 76h80v12H40zM40 52h80v12H40z"/></g></svg>`);
+
+    // --- Header height offset ---
+    const header = document.getElementById('siteHeader');
+    function setHeaderHeight(){
+      document.documentElement.style.setProperty('--header-h', header.offsetHeight + 'px');
+    }
+    setHeaderHeight();
+    window.addEventListener('resize', setHeaderHeight);
+
+    // --- Header shadow on scroll ---
+    const onScrollShadow = () => header.classList.toggle('scrolled', window.scrollY > 2);
+    onScrollShadow();
+    window.addEventListener('scroll', onScrollShadow, {passive:true});
+
+    // --- Smooth anchor scroll ---
+    function smoothScrollTo(targetSel){
+      const target = typeof targetSel === 'string' ? document.querySelector(targetSel) : targetSel;
+      if(!target) return;
+      const startY = window.pageYOffset;
+      const headerOffset = header.offsetHeight + 8;
+      const targetY = target.getBoundingClientRect().top + window.pageYOffset - headerOffset;
+      const distance = Math.abs(targetY - startY);
+      const base = 550; const extra = Math.min(850, distance * 0.35);
+      const duration = base + extra;
+      const startT = performance.now();
+      const ease = t => t<.5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+      function step(now){
+        const p = Math.min(1, (now - startT)/duration);
+        window.scrollTo(0, startY + (targetY - startY) * ease(p));
+        if(p < 1) requestAnimationFrame(step);
+      }
+      requestAnimationFrame(step);
+    }
+    document.querySelectorAll('header nav a[href^="#"]').forEach(a=>{
+      a.addEventListener('click', e=>{
+        const id = a.getAttribute('href'); const el = document.querySelector(id);
+        if(el){ e.preventDefault(); smoothScrollTo(el); }
+      })
+    });
+
+    // --- Active link highlight ---
+    (function(){
+      const links = Array.from(document.querySelectorAll('header nav a[href^="#"]'));
+      const sections = links.map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+      const io = new IntersectionObserver(entries=>{
+        entries.forEach(entry=>{
+          const id='#'+entry.target.id; const link=links.find(l=>l.getAttribute('href')===id);
+          if(link && entry.isIntersecting){ links.forEach(l=>l.classList.remove('active')); link.classList.add('active'); }
+        });
+      }, {rootMargin:`-${header.offsetHeight + 24}px 0px -60% 0px`, threshold:0.2});
+      sections.forEach(sec=>sec && io.observe(sec));
+    })();
+
+    // --- Scroll reveal animations ---
+    (function(){
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      const revealers = document.querySelectorAll('[data-reveal]');
+      const io = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          if(e.isIntersecting){ e.target.classList.add('is-visible'); io.unobserve(e.target); }
+        })
+      }, {rootMargin:'-10% 0px -10% 0px', threshold:0.1});
+      revealers.forEach(el=>io.observe(el));
+    })();
+
+    // --- Ensure placeholders for images ---
+    (function(){
+      document.querySelectorAll('img').forEach(img=>{
+        const sq = /\/services\//.test(img.src) || img.closest('.thumb');
+        if(!img.getAttribute('src') || img.getAttribute('src') === ''){
+          img.src = sq ? PLACEHOLDER_SQUARE : PLACEHOLDER_WIDE;
+        }
+        img.addEventListener('error', function(){
+          this.onerror=null;
+          this.src = sq ? PLACEHOLDER_SQUARE : PLACEHOLDER_WIDE;
+        });
+      });
+    })();
+
+    // --- Form submit (Formspree) ---
+    (function () {
+      const form = document.getElementById('contactForm');
+      if (!form) return;
+      const msg = document.getElementById('formMsg');
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        msg.textContent = 'Sending…';
+
+        [...form.querySelectorAll('input[required], textarea[required]')].forEach(el => {
+          el.classList.toggle('error', !el.value.trim());
+        });
+        if (form.querySelector('.error')) { msg.textContent = 'Please fill in all required fields.'; return; }
+
+        try {
+          const data = new FormData(form);
+          const res = await fetch(form.action, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+          if (res.ok) { msg.textContent = 'Thanks—your message was sent!'; form.reset(); }
+          else { msg.textContent = 'Could not send right now. Please try again.'; }
+        } catch {
+          msg.textContent = 'Network error. Please try again.';
+        }
+      });
+    })();
+
+    // --- Media Navigator (unchanged) ---
+    (function(){
+      const fab = document.getElementById('mediaFab');
+      const panel = document.getElementById('mediaPanel');
+      const closeBtn = document.getElementById('mediaClose');
+      const list = document.getElementById('mediaList');
+      const search = document.getElementById('mediaSearch');
+
+      const nodes = Array.from(document.querySelectorAll('[data-media], figure.ph, section.bg-ph'));
+      const items = nodes.map((el, i)=>{
+        const key = el.getAttribute('data-media') || (el.tagName.toLowerCase()==='section' ? (el.id || 'section-bg-'+i) : ('figure-'+i));
+        const label = key.replace(/[-_]/g,' ').replace(/\b\w/g,s=>s.toUpperCase());
+        const type = el.matches('section.bg-ph') ? 'Background' : (el.matches('figure.ph') ? 'Image' : 'Media');
+        return {key, label, type, el};
+      });
+
+      function render(filter=''){
+        list.innerHTML = '';
+        const q = filter.trim().toLowerCase();
+        items.filter(x => x.label.toLowerCase().includes(q) || x.type.toLowerCase().includes(q) || x.key.toLowerCase().includes(q))
+             .forEach(x=>{
+               const row = document.createElement('div');
+               row.className = 'media-item';
+               row.innerHTML = `<span class="media-chip">${x.type}</span><strong style="flex:1">${x.label}</strong><small class="muted">${x.key}</small>`;
+               row.onclick = ()=>{
+                 panel.classList.remove('open');
+                 x.el.classList.add('media-highlight');
+                 smoothScrollTo(x.el);
+                 setTimeout(()=>x.el.classList.remove('media-highlight'), 1800);
+               };
+               list.appendChild(row);
+             });
+        if(!list.children.length){
+          const empty = document.createElement('div');
+          empty.className='media-item';
+          empty.innerHTML = `<span class="muted">No matches.</span>`;
+          list.appendChild(empty);
+        }
+      }
+
+      fab.onclick = ()=>{ panel.classList.toggle('open'); if(panel.classList.contains('open')){ render(''); search.value=''; search.focus(); } };
+      closeBtn.onclick = ()=> panel.classList.remove('open');
+      search.oninput = ()=> render(search.value);
+      document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') panel.classList.remove('open'); });
+    })();
+  </script>
+</body>
+</html>
